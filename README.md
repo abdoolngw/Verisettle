@@ -164,6 +164,92 @@ Quarterly code reviews
 Open-source transparency
 Continuous vulnerability monitoring
 
+Smart Contract Deployment (Solana Devnet)
+
+# 1. Clone the repository
+git clone https://github.com/abdoolngw/Verisettle.git
+cd Verisettle
+
+# 2. Configure Solana CLI for devnet
+solana config set --url https://api.devnet.solana.com
+
+# 3. Build the Anchor program
+anchor build
+
+# 4. Deploy smart contract to Solana devnet
+anchor deploy
+
+# 5. Save the program ID displayed after deployment
+
+
+## Frontend Setup
+
+# 1. Move to frontend folder
+cd frontend
+
+# 2. Install dependencies
+yarn install
+
+# 3. Configure environment variables
+# (Create a .env file and add your Solana RPC + Program ID)
+NEXT_PUBLIC_SOLANA_RPC=https://api.devnet.solana.com
+NEXT_PUBLIC_PROGRAM_ID=<Your_Deployed_Program_ID>
+
+# 4. Run local development server
+yarn dev
+
+Access the dashboard via http://localhost:3000
+
+## API Integration (For Fintechs & Banks)
+
+Verisettle provides REST and GraphQL APIs for seamless settlement automation.
+
+Example API Call:
+
+POST /api/settlement/initiate
+{
+  "from_wallet": "<sender_pubkey>",
+  "to_wallet": "<receiver_pubkey>",
+  "amount": "1000",
+  "currency": "USDC",
+  "reference": "invoice-98342",
+  "zk_compliance_token": "<proof_hash>"
+}
+
+Response:
+
+{
+  "status": "success",
+  "transaction_hash": "5wzH7D8QpYvAb9N9q8...",
+  "settlement_time": "2.8s"
+}
+
+
+## Testing
+
+# Run unit tests for smart contracts
+anchor test
+
+## Deployment
+
+Once tested on devnet:
+
+1. Configure Solana CLI to mainnet-beta
+
+solana config set --url https://api.mainnet-beta.solana.com
+
+
+2. Redeploy using anchor deploy
+
+
+3. Update .env in frontend with mainnet RPC + Program ID
+
+
+4. Rebuild frontend with:
+
+yarn build
+yarn start
+
 
 ## Contribution
 
